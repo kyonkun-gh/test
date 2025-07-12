@@ -3,13 +3,14 @@
 ## SQL 四大指令分類
 - **DDL（資料定義語言）**：CREATE, ALTER, DROP, TRUNCATE, RENAME, COMMENT
 - **DML（資料操作語言）**：SELECT, INSERT, UPDATE, DELETE
-- **DCL（資料控制語言）**：GRANT, REVOKE
-- **TCL（交易控制語言）**：COMMIT, ROLLBACK, SAVEPOINT
+- **DCL（資料控制語言）**：GRANT, 
+- **
+-（CL（交易控）**：NT
 
-## ANSI/SPARC 資料庫三層架構（Three-Schema Architecture）
-### 這是描述資料庫系統的層次結構與抽象層級：
+## ANSI/SPARC 資料庫三層架構（Th
+- **hem（chitec）**：象層級：
 | 層級   | 名稱        | 說明                                   | 使用對象               |
-|--------|-------------|----------------------------------------|------------------------|
+|------|-------------|-------------------------------------### 這是描述資料庫系統的層次結構與抽象層級：---|------------------------|
 | 外部層 | External    | 使用者視圖，每位使用者看到的子集合     | 使用者 / 開發者        |
 | 概念層 | Conceptual  | 全企業邏輯結構，所有資料的整體模型     | 系統設計者             |
 | 內部層 | Internal    | 資料實際儲存方式，例如索引與壓縮方式   | DBA（資料庫管理員）    |
@@ -96,3 +97,77 @@
 | 2NF        | 部分相依               | 非主鍵欄位必須完全依賴主鍵                 |
 | 3NF        | 傳遞相依               | 非主鍵欄位不能依賴其他非主鍵欄位           |
 | BCNF       | 候選鍵問題             | 所有決定欄位都必須是候選鍵                 |
+
+## 資料庫系統環境通常包含以下三大要素
+- **資料（Data）**		系統所管理的資料本身。
+- **硬體（Hardware）**	運行資料庫系統所需的物理設備，如伺服器、儲存裝置等。
+- **程序（Procedure）**	操作資料庫系統的規則、流程與方法。
+
+## 主要用來儲存資料庫結構相關的描述性資料
+- **資料庫綱要（Schema）**：資料表、欄位、資料型別、限制等結構定義
+- **索引資料**：資料表上的索引結構資訊
+- **視界（View）資訊**：虛擬表格定義及相關資料
+
+## 資料庫三大模型
+| 項目             | 階層式         | 網路式           | 關聯式                  |
+|------------------|----------------|------------------|-------------------------|
+| 結構             | 樹狀結構       | 圖狀結構         | 表格結構                |
+| 關係型態         | 一對多         | 多對多           | 任意（透過外鍵）        |
+| 代表關係         | 父子           | 擁有者-成員      | 主鍵-外鍵               |
+| 彈性             | 低             | 中               | 高                      |
+| 查詢語言         | 複雜、自定     | 複雜、自定       | 標準 SQL                |
+| 是否支援多對多   | ❌             | ✅               | ✅（透過中介表）        |
+| 開發維護難度     | 高             | 更高             | 相對較低                |
+
+
+## Java
+- **建構式**: 建立物件(new)時初始化物件狀態
+- **預設建構式**: 沒有明確寫出任何建構式，編譯器預設會有一個無參數、空內容的建構式，稱為預設建構式
+
+- **多載 (Overloading)**:在同一類別中，方法名稱相同，但參數型別、數量不同，稱為多載
+```Java
+public void print() {
+	System.out.println( "" );
+}
+public void print(String hello) {
+	System.out.println( hello );
+}
+```
+
+- **覆寫 (Overriding)**:子類別繼承父類別後，可以重新定義父類別的方法，稱為覆寫
+```Java
+class Animal {
+	public void move() {
+		System.out.println( "move" );
+	}
+}
+class Dog extends Animal {
+	public void move() {
+		System.out.println( "run" );
+	}
+}
+```
+
+- **多型 (Polymorphism)**:父類別變數可以指向子類別的物件，執行時根據物件型別呼叫對應方法，使得相同程式碼有不同行為，稱為多型
+```Java
+class Animal {
+	public void move() {
+		System.out.println( "move" );
+	}
+}
+class Dog extends Animal {
+	public void move() {
+		System.out.println( "run" );
+	}
+}
+class Bird extends Animal {
+	public void move() {
+		System.out.println( "fly" );
+	}
+}
+
+Animal dog = new Dog();
+Animal bird = new Bird();
+dog.move();
+bird.move();
+```
