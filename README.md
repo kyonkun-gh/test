@@ -122,13 +122,47 @@
 - **建構式**: 建立物件(new)時初始化物件狀態
 - **預設建構式**: 沒有明確寫出任何建構式，編譯器預設會有一個無參數、空內容的建構式，稱為預設建構式
 
+- **物件導向三大特性**:封裝、繼承、多型
+
+- **封裝**: 封裝是將物件的資料（變數）和行為（方法）包裝在一起，並且隱藏內部細節，只對外暴露必要的接口。使用者不需要了解物件的內部實作細節，只需使用公開的方法來操作物件
+```Java
+public class Person {
+    private String name;  // 私有變數，封裝內部狀態
+
+    public String getName() {  // 公開方法，提供存取接口
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+```
+
+- **繼承**: 繼承是子類別繼承父類別的屬性與方法，重用父類別程式碼，並能擴充或覆寫（Override）父類別功能
+```Java
+class Animal {
+	public void move() {
+		System.out.println( "move" );
+	}
+}
+class Dog extends Animal {  //extends繼承父類別
+    @Override
+	public void move() {
+		System.out.println( "run" );
+	}
+}
+
 - **多載 (Overloading)**:在同一類別中，方法名稱相同，但參數型別、數量不同，稱為多載
 ```Java
-public void print() {
-	System.out.println( "" );
-}
-public void print(String hello) {
-	System.out.println( hello );
+class Hello {
+    public void print() {
+	    System.out.println( "" );
+    }
+    
+    public void print(String hello) { //相同方法名稱print，但額外提供 String hello參數
+	    System.out.println( hello );
+    }
 }
 ```
 
@@ -140,7 +174,8 @@ class Animal {
 	}
 }
 class Dog extends Animal {
-	public void move() {
+    @Override
+	public void move() { //重新覆寫父類別方法
 		System.out.println( "run" );
 	}
 }
@@ -154,18 +189,93 @@ class Animal {
 	}
 }
 class Dog extends Animal {
-	public void move() {
+	@Override
+    public void move() {
 		System.out.println( "run" );
 	}
 }
 class Bird extends Animal {
+    @Override
 	public void move() {
 		System.out.println( "fly" );
 	}
 }
 
-Animal dog = new Dog();
-Animal bird = new Bird();
-dog.move();
-bird.move();
+Animal dog = new Dog();  //Animal變數，實際是 Dog物件
+Animal bird = new Bird();//Animal變數，實際是 Bird物件
+dog.move();  //會輸出 run
+bird.move(); //會輸出 fly，輸出不同行為
+```
+
+- **單例模式(Singleton)**
+```Java
+class Singleton {
+    private static Singleton instance;
+
+    private Singleton(){}
+
+    public static Singleton getInstance() {
+        if ( instance == null ) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}
+```
+
+- **氣泡排序法(Bubble Sort)** 每次從頭開始比較 2個元素，將較大(小)元素往後移動
+```Java
+public int[] bubbleSort(int[] arr) {
+    int n = arr.length;
+    boolean hasSwap = true;
+    while ( hasSwap ) {
+        hasSwap = false;
+        for ( int i = 1; i < n; i++ ) {
+            if ( arr[i-1] > arr[i] ) {
+                swap(arr, i-1, i);
+                hasSwap = true;
+            }
+        }
+    }
+
+    return arr;
+}
+```
+
+- **插入排序法(Insertion Sort)** 每次由當前元素開始，往前尋找，直到找到適合插入的位置
+```Java
+public int[] insertionSort(int[] arr) {
+    int n = arr.length;
+    for ( int i = 0; i < n; i++ ) {
+        int cur = arr[i];
+        
+        int j = i-1;
+        while ( j >= 0 && cur < arr[j] ) {
+            arr[j+1] = arr[j];
+            j--;
+        }
+
+        arr[j+1] = cur;
+    }
+
+    return arr;
+}
+```
+
+- **選擇排序法(Selection Sort)** 由當前元素開始，往後選擇最小(大)，並放到目前位置
+```Java
+public int[] selectionSort(int[] arr) {
+    int n = arr.length;
+    for ( int i = 0; i < n; i++ ) {
+        int minIdx = i;
+        for ( int j = i+1; j < n; j++ ) {
+            if ( arr[j] < arr[minIdx] ) {
+                minIdx = j;
+            }
+        }
+        swap(arr, i, minIdx);
+    }
+
+    return arr;
+}
 ```
