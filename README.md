@@ -214,6 +214,7 @@ class Dog extends Animal {  //extends繼承父類別
 		System.out.println( "run" );
 	}
 }
+```
 
 - **多載 (Overloading)**:在同一類別中，方法名稱相同，但參數型別、數量不同，稱為多載
 ```Java
